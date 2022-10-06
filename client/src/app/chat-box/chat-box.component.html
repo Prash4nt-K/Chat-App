@@ -1,0 +1,74 @@
+
+<div class="pos-f-t" style="background-color: #01796F">
+
+  <div id="navbarToggleExternalContent" [class] = "toggleCollapse">
+    <div class="p-2 row">
+      <p class="navbar-brand h3 p-2" style="margin: 10px;">Users Online: {{online}}</p> 
+      <div *ngFor="let usr of usersOnline" style="font-size: small; margin-left: 10px;">
+        <p>{{usr}}</p>
+      </div>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-dark">
+    <div class="d-flex justify-content-start">
+      <p class="navbar-brand h3 p-2">@{{user}}</p>
+    </div> 
+    <div class=" d-flex justify-content-end">
+      <button class="navbar-toggler" (click)="toggleCollapseOnClick()">
+        <span class="navbar-toggler-icon"></span>
+      </button>   
+    </div> 
+  </nav>
+
+</div>
+
+
+<div class="container-fluid" style="margin-top: 10px; margin-bottom:10px;">
+
+  <div class="rounded overflow-auto" #scrollMe [scrollTop]="scrollMe.scrollHeight" style="height:65vh; padding: 10px;">
+  <!-- #scrollMe [scrollTop]="scrollMe.scrollHeight"  -----This lets the scroll to the bottom when the div overflows with messages  -->      
+  
+  <div *ngFor="let msg of allPreviousMessages">
+    <div class="message-card-in">
+      <!-- text-break prevents text overflow from right and keeps it to max-width -->
+      <div class="card-header" style="color: #FFFF00;">{{ msg.username }} <small style="font-size: 0.8rem; color: #7FFF00;">[{{msg.date}}]</small></div>
+      <div class="card-body">
+        <p class="card-text"style="color: aliceblue;">{{ msg.message }}</p>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div *ngFor="let msg of messageList" [ngClass]="{mine: msg.mine}">
+      <div [ngClass]="{'message-card-out': msg.mine, 'message-card-in' :msg.mine == false, 'text-break': true}">
+        <!-- text-break prevents text overflow from right and keeps it to max-width -->
+        <div class="card-header" style="color: #FFFF00;">{{ msg.userName }} <small style="font-size: 0.8rem; color: #7FFF00;">[{{hour+":"+minute}}]</small></div>
+        <div class="card-body">
+          <p class="card-text"style="color: aliceblue;">{{ msg.message }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div *ngFor="let uj of usersJoined">
+        <div class="card-body">
+          <p class="card-text"style="color: aliceblue;">{{ uj }} joined the chat.</p>
+        </div>
+    </div> -->
+
+  </div>
+
+
+  <div class="row" style="padding-left: 15px; padding-right: 15px"> 
+    <input class="col form-control" style="margin-right: 5px;" placeholder="Type your message..." type="text" [(ngModel)]="message">
+    <button class="col-2 btn btn-success" style="margin-left: 5px;" (click)="sendMessage()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
+        <path d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"/>
+      </svg>
+    </button>
+  </div>
+
+</div>
+
+
+  
